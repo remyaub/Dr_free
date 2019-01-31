@@ -10,32 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_132020) do
+ActiveRecord::Schema.define(version: 2019_01_31_150718) do
 
   create_table "appointments", force: :cascade do |t|
     t.datetime "date"
     t.integer "doctor_id"
     t.integer "patient_id"
+    t.integer "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_appointments_on_city_id"
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.integer "patient_id"
+    t.integer "doctor_id"
+    t.integer "appointment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_cities_on_appointment_id"
+    t.index ["doctor_id"], name: "index_cities_on_doctor_id"
+    t.index ["patient_id"], name: "index_cities_on_patient_id"
   end
 
   create_table "doctors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "speciality"
     t.integer "zip_code"
+    t.integer "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_doctors_on_city_id"
   end
 
   create_table "patients", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
+    t.integer "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_patients_on_city_id"
+  end
+
+  create_table "specialities", force: :cascade do |t|
+    t.string "name"
+    t.integer "doctor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doctor_id"], name: "index_specialities_on_doctor_id"
   end
 
 end

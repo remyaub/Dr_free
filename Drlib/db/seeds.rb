@@ -11,17 +11,21 @@
     patient = Patient.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
 end
 
-
-
 10.times do
     doctor = Doctor.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, 
-    speciality: Faker::Cannabis.strain, zip_code: Faker::Address.postcode)
+    zip_code: Faker::Address.postcode)
 end
-
-
 
 15.times do
     appointment = Appointment.create!(date: Faker::Date.between(25.days.ago, Date.today), 
     patient_id: rand(1..20), doctor_id: rand(1..10))
 end
 
+15.times do
+    city = City.create!(name: Faker::Address.city, patient_id: rand(1..20), doctor_id: rand(1..10),
+    appointment_id: rand(1..15))
+end
+
+10.times do
+    speciality = Speciality.create!(name: Faker::Cannabis.strain, doctor_id: rand(1..10))
+end    
