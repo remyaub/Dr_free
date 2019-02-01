@@ -26,14 +26,8 @@ ActiveRecord::Schema.define(version: 2019_01_31_150718) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
-    t.integer "patient_id"
-    t.integer "doctor_id"
-    t.integer "appointment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appointment_id"], name: "index_cities_on_appointment_id"
-    t.index ["doctor_id"], name: "index_cities_on_doctor_id"
-    t.index ["patient_id"], name: "index_cities_on_patient_id"
   end
 
   create_table "doctors", force: :cascade do |t|

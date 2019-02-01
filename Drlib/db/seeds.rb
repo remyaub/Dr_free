@@ -6,24 +6,22 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+15.times do
+    city = City.create!(name: Faker::Address.city)
+end
 
 20.times do
-    patient = Patient.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+    patient = Patient.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, city_id: rand(1..15))
 end
 
 10.times do
     doctor = Doctor.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, 
-    zip_code: Faker::Address.postcode)
+    zip_code: Faker::Address.postcode, city_id: rand(1..15))
 end
 
 15.times do
     appointment = Appointment.create!(date: Faker::Date.between(25.days.ago, Date.today), 
-    patient_id: rand(1..20), doctor_id: rand(1..10))
-end
-
-15.times do
-    city = City.create!(name: Faker::Address.city, patient_id: rand(1..20), doctor_id: rand(1..10),
-    appointment_id: rand(1..15))
+    patient_id: rand(1..20), doctor_id: rand(1..10), city_id: rand(1..15))
 end
 
 10.times do
